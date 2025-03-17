@@ -77,7 +77,7 @@
             font-size: 16px;
         }
         #folderName {
-            font-size: clamp(12px, 4vw, 16px);
+            font-size: 16px;
             font-weight: bold;
             color: #3325a8;
             text-overflow: ellipsis;
@@ -85,6 +85,15 @@
             overflow: hidden;
             max-width: 100%;
             display: block;
+            width: fit-content;
+            transform: scale(1);
+        }
+        #FolderNameContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            overflow: hidden;
         }
         #feedback {
             font-size: 16px;
@@ -165,7 +174,10 @@
             <button type="submit">Gerar nome da pasta</button>
         </form>
     
-        <p id="folderName"></p>
+        <div id="folderNameContainer">
+            <p id="folderName"></p>
+        </div>
+        
         <p id="feedback"></p>
     </div>
 </body>
