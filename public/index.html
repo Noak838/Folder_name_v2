@@ -92,13 +92,13 @@
             event.preventDefault();
 
             const formData = {
-                Modelo: document.querySelector('input[name="Modelo"]').value,
-                Litragem: document.querySelector('input[name="Litragem"]').value,
-                Potencia: document.querySelector('input[name="Potencia"]').value,
-                Ano: document.querySelector('input[name="Ano"]').value,
-                Transmissao: document.querySelector('input[name="Transmissão"]').value,
-                Placa: document.querySelector('input[name="Placa"]').value,
-                Cliente: document.querySelector('input[name="Cliente"]').value
+                Modelo: document.querySelector('input[name="Modelo"]').value.replace(/\s+/g, "_"),
+                Litragem: document.querySelector('input[name="Litragem"]').value.replace(/\s+/g, "_"),
+                Potencia: document.querySelector('input[name="Potencia"]').value.replace(/\s+/g, "_"),
+                Ano: document.querySelector('input[name="Ano"]').value.replace(/\s+/g, "_"),
+                Transmissao: document.querySelector('input[name="Transmissão"]').value.replace(/\s+/g, "_"),
+                Placa: document.querySelector('input[name="Placa"]').value.replace(/\s+/g, "_"),
+                Cliente: document.querySelector('input[name="Cliente"]').value.replace(/\s+/g, "_")
             };
 
             fetch("https://foldernamev2-production.up.railway.app/", { // Use your actual Railway backend URL
