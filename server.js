@@ -16,7 +16,7 @@ function createFolderName(answers) {
 
 // Route to serve the form (if using HTML)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html")); // Serve an HTML form (optional)
+    res.send("API is running! Use POST to send data.");
 });
 
 // Handle form submission
