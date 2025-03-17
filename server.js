@@ -1,4 +1,6 @@
 const express = require("express"); // Import Express framework
+const cors = require("cors");
+app.use(cors());
 const path = require("path"); // Helps with file paths
 require("dotenv").config(); // Load environment variables
 
