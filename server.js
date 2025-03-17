@@ -14,10 +14,9 @@ function createFolderName(answers) {
     return answers.join("_").toUpperCase().replace(/\s/g, ""); // Format and remove spaces
 }
 
-// Route to serve the form (if using HTML)
-app.get("/", (req, res) => {
-    res.send("API is running! Use POST to send data.");
-});
+// Serve static files from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
+
 
 // Handle form submission
 app.post("/", (req, res) => {

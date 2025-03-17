@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal - Anvil Performance</title>
+    <link rel="icon" type="image/png" href="static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.ico">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a9aaab;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        img.logo {
+            max-width: 100%;
+            height: auto;
+            width: 150px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #3325a8;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 8px;
+            display: block;
+            font-size: 14px;
+        }
+        input {
+            width: calc(100% - 18px);
+            padding: 8px;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #392d9c;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 8px;
+        }
+        button:hover {
+            background-color: #2914d9;
+        }
+        h2 {
+            margin-top: 15px;
+            color: #333;
+            font-size: 16px;
+        }
+        #folderName {
+            font-size: 16px;
+            font-weight: bold;
+            color: #3325a8;
+        }
+        #feedback {
+            font-size: 16px;
+            font-weight: bold;
+            color: #3325a8;
+        }
+    </style>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            const formData = {
+                Modelo: document.querySelector('input[name="Modelo"]').value,
+                Litragem: document.querySelector('input[name="Litragem"]').value,
+                Potencia: document.querySelector('input[name="Potencia"]').value,
+                Ano: document.querySelector('input[name="Ano"]').value,
+                Transmissao: document.querySelector('input[name="Transmissão"]').value,
+                Placa: document.querySelector('input[name="Placa"]').value,
+                Cliente: document.querySelector('input[name="Cliente"]').value
+            };
+
+            fetch("https://foldernamev2-production.up.railway.app/", { // Use your actual Railway backend URL
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const folderName = data.folder_name;
+                document.getElementById('folderName').textContent = folderName;
+                copyToClipboard(folderName);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('feedback').textContent = 'Erro ao gerar nome da pasta.';
+            });
+        }
+
+        function copyToClipboard(folderName) {
+            navigator.clipboard.writeText(folderName).then(() => {
+                document.getElementById('feedback').textContent = `Copiado`;
+            }, () => {
+                document.getElementById('feedback').textContent = 'Falha ao copiar nome da pasta.';
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="static/logo.jpg" alt="Anvil Performance Logo" class="logo">
+        <h1>Anvil Performance</h1>
+
+        <form onsubmit="submitForm(event)">
+            <label>Modelo:</label>
+            <input type="text" name="Modelo">
+
+            <label>Litragem:</label>
+            <input type="text" name="Litragem">
+
+            <label>Potencia:</label>
+            <input type="text" name="Potencia">
+
+            <label>Ano:</label>
+            <input type="text" name="Ano">
+
+            <label>Transmissão:</label>
+            <input type="text" name="Transmissão">
+
+            <label>Placa:</label>
+            <input type="text" name="Placa">
+
+            <label>Cliente:</label>
+            <input type="text" name="Cliente">
+
+            <button type="submit">Gerar nome da pasta</button>
+        </form>
+    
+        <p id="folderName"></p>
+        <p id="feedback"></p>
+    </div>
+</body>
+</html>
