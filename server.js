@@ -1,12 +1,18 @@
 const express = require("express"); // Import Express framework
 const cors = require("cors");
 const path = require("path"); // Helps with file paths
+const { METHODS } = require("http");
 require("dotenv").config(); // Load environment variables
 
 const app = express(); // Initialize Express app
 const PORT = process.env.PORT || 8080; // Use environment variable or default to 8080
 
-app.use(cors());
+app.use(cors({
+    origin: ["https://portal-anvil.com", "https://www.portal-anvil.com"],
+    methods: "GET,POST",
+    allowedHeaders: ["Content-Type"],
+        CREDENTIALS: true
+}));
 app.use(express.json()); // Middleware to handle JSON data
 app.use(express.urlencoded({ extended: true })); // Middleware to handle form data
 
