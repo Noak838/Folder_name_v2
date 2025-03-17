@@ -18,8 +18,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             box-sizing: border-box;
+            overflow-y: auto;
         }
         .container {
             background-color: #fff;
@@ -31,9 +32,9 @@
             text-align: center;
         }
         img.logo {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
-            width: 150px;
+            width: clamp(120px, 30%, 200px);
             margin-bottom: 15px;
         }
         h1 {
